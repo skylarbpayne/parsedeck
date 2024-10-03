@@ -21,6 +21,8 @@ uv run parsedeck/main.py {OUTPUT_FILE_PATH} {DECK_NAME} {INPUT_URLS}
 
 to create an Anki deck from a list of URLs. This can then be imported into Anki.
 
+This is currently hardcoded to use an Anthropic model; so you should set the `ANTHROPIC_API_KEY` environment variable.
+
 ## Roadmap
 
 1. Support for broader content types (PDFs, etc.)
