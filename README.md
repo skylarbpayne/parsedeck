@@ -11,56 +11,22 @@ A tool for creating Anki flashcard decks from a variety of content sources.
 - **Github repository**: <https://github.com/skylarbpayne/parsedeck/>
 - **Documentation** <https://skylarbpayne.github.io/parsedeck/>
 
-## Getting started with your project
+## Getting Started
 
-### 1. Create a New Repository
-
-First, create a repository on GitHub with the same name as this project, and then run the following commands:
+This project uses uv for environment/dependency management. Run:
 
 ```bash
-git init -b main
-git add .
-git commit -m "init commit"
-git remote add origin git@github.com:skylarbpayne/parsedeck.git
-git push -u origin main
+uv run parsedeck/main.py {OUTPUT_FILE_PATH} {DECK_NAME} {INPUT_URLS}
 ```
 
-### 2. Set Up Your Development Environment
+to create an Anki deck from a list of URLs. This can then be imported into Anki.
 
-Then, install the environment and the pre-commit hooks with
+## Roadmap
 
-```bash
-make install
-```
-
-This will also generate your `uv.lock` file
-
-### 3. Run the pre-commit hooks
-
-Initially, the CI/CD pipeline might be failing due to formatting issues. To resolve those run:
-
-```bash
-uv run pre-commit run -a
-```
-
-### 4. Commit the changes
-
-Lastly, commit the changes made by the two steps above to your repository.
-
-```bash
-git add .
-git commit -m 'Fix formatting issues'
-git push origin main
-```
-
-You are now ready to start development on your project!
-The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
-
-To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).
-
-## Releasing a new version
+1. Support for broader content types (PDFs, etc.)
+2. Support for different flashcard formats (Quizlet, etc.)
+3. Support for total content longer than provider token limits (e.g. via RAG)
+4. Logging / metrics with logfire
 
 ---
 
