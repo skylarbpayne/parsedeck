@@ -1,8 +1,9 @@
 import random
 
 import genanki
-from mirascope.core import anthropic, prompt_template
+from mirascope.core import openai, prompt_template
 from pydantic import BaseModel, Field
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 
 class Card(BaseModel):
@@ -13,16 +14,37 @@ class Card(BaseModel):
 
 
 class Deck(BaseModel):
-    plan: str = Field(..., description="The plan for the structure and organization of the deck")
-    cards_to_create: list[str] = Field(
-        ..., description="A short description of which cards to create; an extension of the plan"
-    )
+    # plan: str = Field(..., description="The plan for the structure and organization of the deck")
+    # cards_to_create: list[str] = Field(
+    #     ..., description="A short description of which cards to create; an extension of the plan"
+    # )
     cards: list[Card] = Field(..., description="The list of flashcards")
 
 
-@anthropic.call(
-    model="claude-3-5-sonnet-20240620",
-    response_model=Deck,
+class DeckPlan(BaseModel):
+    plan: str = Field(..., description="The plan for the structure and organization of the deck")
+    reasoning: str = Field(..., description="The reasoning for the plan")
+    cards_to_create: list[str] = Field(
+        ..., description="A short description of which cards to create; an extension of the plan"
+    )
+    feedback: str = Field(..., description="Feedback on the plan and cards to create")
+    finished: bool = Field(..., description="Whether the plan is finished or should be revised")
+
+
+class DeckPlanRevisions(BaseModel):
+    plan_revisions: list[DeckPlan] = Field(
+        ..., description="The revisions to the plan. The first element is the initial plan. Make up to 3 revisions."
+    )
+
+
+# TODO: make the model configurable
+@retry(
+    stop=stop_after_attempt(5),
+    wait=wait_exponential(multiplier=1, min=60, max=120),
+)
+@openai.call(
+    model="gpt-4o-mini",
+    response_model=DeckPlanRevisions,
     json_mode=True,
 )
 @prompt_template(
@@ -31,11 +53,55 @@ class Deck(BaseModel):
     You create flashcards ranging from easy to hard, and you always include the sources you used to create the flashcards to prevent information from being made up.
     Some of your flashcards will be conceptual, and others will be Q&A style.
 
-    Create flashcards from the following content:
+    Each card you will create should be based on a single concept and be concise. Avoid using prompts with the word 'and' because this implies that there may be multiple concepts.
+    Prefer to have more cards with each card being simpler and more specific over having fewer cards with complexity.
+
+    Try to create as many cards as possible.
+    During planning, spend time thinking about whether you can create more cards.
+
+    Create a plan for what flashcards to create from the following content:
     {content}
     """
 )
-def parse_deck(content: str) -> Deck: ...
+def make_deck_plan(content: str) -> DeckPlanRevisions: ...
+
+
+# TODO: make the model configurable
+@retry(
+    stop=stop_after_attempt(5),
+    wait=wait_exponential(multiplier=1, min=20, max=60),
+)
+@openai.call(
+    model="gpt-4o-mini",
+    response_model=Card,
+    json_mode=True,
+)
+@prompt_template(
+    """
+    You are an expert at parsing content into flashcards. You know how to extract the most relevant information from a given text and format it into a simple front/back flashcard.
+    You create flashcards ranging from easy to hard, and you always include the sources you used to create the flashcards to prevent information from being made up.
+    Some of your flashcards will be conceptual, and others will be Q&A style.
+
+    Create a single flashcard from the following prompt and content.
+
+    # Prompt
+    {card_description}
+    # Content
+    {content}
+    """
+)
+def make_card(content: str, card_description: DeckPlan) -> Card: ...
+
+
+# Rate limit issues??
+def parse_deck(contents: list[str]) -> Deck:
+    cards = []
+    for content in contents:
+        plan = make_deck_plan(content)
+        cards.extend([
+            make_card(content, card_description) for card_description in plan.plan_revisions[-1].cards_to_create
+        ])
+    return Deck(cards=cards)
 
 
 def export_to_anki(deck: Deck, deck_name: str, output_file: str = "output.apkg"):

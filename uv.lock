@@ -668,6 +668,9 @@ mistral = [
 openai = [
     { name = "openai" },
 ]
+tenacity = [
+    { name = "tenacity" },
+]
 
 [[package]]
 name = "mistralai"
@@ -939,7 +942,7 @@ source = { editable = "." }
 dependencies = [
     { name = "anki" },
     { name = "genanki" },
-    { name = "mirascope", extra = ["anthropic", "mistral", "openai"] },
+    { name = "mirascope", extra = ["anthropic", "mistral", "openai", "tenacity"] },
     { name = "pydantic" },
     { name = "typer" },
 ]
@@ -962,7 +965,7 @@ dev = [
 requires-dist = [
     { name = "anki", specifier = ">=24.6.3" },
     { name = "genanki", specifier = ">=0.13.1" },
-    { name = "mirascope", extras = ["anthropic", "mistral", "openai"], specifier = ">=1.2.1" },
+    { name = "mirascope", extras = ["anthropic", "mistral", "openai", "tenacity"], specifier = ">=1.2.1" },
     { name = "pydantic", specifier = ">=2.9.2" },
     { name = "typer", specifier = ">=0.12.5" },
 ]
@@ -1440,6 +1443,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d7/ce/fbaeed4f9fb8b2daa961f90591662df6a86c1abf25c548329a86920aedfb/soupsieve-2.6.tar.gz", hash = "sha256:e2e68417777af359ec65daac1057404a3c8a5455bb8abc36f1a9866ab1a51abb", size = 101569 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d1/c2/fe97d779f3ef3b15f05c94a2f1e3d21732574ed441687474db9d342a7315/soupsieve-2.6-py3-none-any.whl", hash = "sha256:e72c4ff06e4fb6e4b5a9f0f55fe6e81514581fca1515028625d0f299c602ccc9", size = 36186 },
+]
+
+[[package]]
+name = "tenacity"
+version = "8.5.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a3/4d/6a19536c50b849338fcbe9290d562b52cbdcf30d8963d3588a68a4107df1/tenacity-8.5.0.tar.gz", hash = "sha256:8bc6c0c8a09b31e6cad13c47afbed1a567518250a9a171418582ed8d9c20ca78", size = 47309 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d2/3f/8ba87d9e287b9d385a02a7114ddcef61b26f86411e121c9003eb509a1773/tenacity-8.5.0-py3-none-any.whl", hash = "sha256:b594c2a5945830c267ce6b79a166228323ed52718f30302c1359836112346687", size = 28165 },
 ]
 
 [[package]]

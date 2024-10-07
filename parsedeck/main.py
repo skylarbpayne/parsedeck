@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from urllib.parse import urlparse
 
 import requests
@@ -12,10 +13,27 @@ def get_content(filepath: str) -> str:
         return f.read()
 
 
-def get_url_content(url: str) -> str:
+def get_url_content(url: str, download_dir: Path) -> str:
     response = requests.get(url)  # noqa: S113
     response.raise_for_status()
-    return response.text
+    content = response.text
+
+    # Save the content to a local file
+    parsed_url = urlparse(url)
+    filename = parsed_url.path.split("/")[-1] or f"{parsed_url.netloc}_index.html"
+    filepath = download_dir / filename
+
+    # Ensure unique filename
+    counter = 1
+    while filepath.exists():
+        name, ext = os.path.splitext(filename)
+        filepath = download_dir / f"{name}_{counter}{ext}"
+        counter += 1
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(content)
+
+    return content
 
 
 def is_valid_url(url: str) -> bool:
@@ -33,26 +51,34 @@ class InvalidInputSource(ValueError):
 
 # TODO: support for PDF
 # TODO: support for video?
-def combine_content_from_sources(input_sources: list[str]) -> str:
-    combined_content = ""
+def combine_content_from_sources(input_sources: list[str], download_dir: Path) -> list[str]:
+    contents = []
     for source in input_sources:
         if os.path.isdir(source):
             for file in os.listdir(source):
-                combined_content += get_content(os.path.join(source, file)) + "\n\n"
+                contents.append(get_content(os.path.join(source, file)))
         elif os.path.isfile(source):
             content = get_content(source)
         elif is_valid_url(source):
-            content = get_url_content(source)
+            content = get_url_content(source, download_dir)
         else:
             raise InvalidInputSource(source)
-        combined_content += content + "\n\n"  # Add some separation between contents
-    return combined_content.strip()
+        contents.append(content)  # Add some separation between contents
+    return contents
 
 
 def main(output_file_path: str, deck_name: str, input_sources: list[str]):
-    combined_content = combine_content_from_sources(input_sources)
+    # Create a directory for downloaded content
+    download_dir = Path("downloaded_content")
+    download_dir.mkdir(exist_ok=True)
 
-    deck = parse_deck(combined_content.strip())
+    contents = combine_content_from_sources(input_sources, download_dir)
+
+    # Save the combined content to a file
+    # with open("combined_content.txt", "w", encoding="utf-8") as f:
+    #     f.write(combined_content)
+
+    deck = parse_deck(contents)
     export_to_anki(deck, deck_name, output_file_path)
 
 
