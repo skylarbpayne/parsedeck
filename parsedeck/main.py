@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 import requests
 import typer
 
-from parsedeck.deck import export_to_anki, parse_deck
+from parsedeck.deck import export_to_anki, export_to_orbit, parse_deck
 
 
 def get_content(filepath: str) -> str:
@@ -51,7 +51,7 @@ class InvalidInputSource(ValueError):
 
 # TODO: support for PDF
 # TODO: support for video?
-def combine_content_from_sources(input_sources: list[str], download_dir: Path) -> list[str]:
+def get_content_from_sources(input_sources: list[str], download_dir: Path) -> list[str]:
     contents = []
     for source in input_sources:
         if os.path.isdir(source):
@@ -67,19 +67,19 @@ def combine_content_from_sources(input_sources: list[str], download_dir: Path) -
     return contents
 
 
-def main(output_file_path: str, deck_name: str, input_sources: list[str]):
+def main(output_file_path: str, deck_name: str, input_sources: list[str], export_format: str = "anki"):
     # Create a directory for downloaded content
     download_dir = Path("downloaded_content")
     download_dir.mkdir(exist_ok=True)
 
-    contents = combine_content_from_sources(input_sources, download_dir)
-
-    # Save the combined content to a file
-    # with open("combined_content.txt", "w", encoding="utf-8") as f:
-    #     f.write(combined_content)
+    contents = get_content_from_sources(input_sources, download_dir)
 
     deck = parse_deck(contents)
-    export_to_anki(deck, deck_name, output_file_path)
+
+    if export_format == "anki":
+        export_to_anki(deck, deck_name, output_file_path)
+    elif export_format == "orbit":
+        export_to_orbit(deck, deck_name, output_file_path)
 
 
 if __name__ == "__main__":

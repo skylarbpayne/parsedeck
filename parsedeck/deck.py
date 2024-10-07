@@ -1,4 +1,5 @@
 import random
+from pathlib import Path
 
 import genanki
 from mirascope.core import openai, prompt_template
@@ -148,3 +149,40 @@ def export_to_anki(deck: Deck, deck_name: str, output_file: str = "output.apkg")
 
     # Create and write the package
     genanki.Package(anki_deck).write_to_file(output_file)
+
+
+# ... existing code ...
+
+
+def export_to_orbit(deck: Deck, deck_name: str, output_file: str = "output.html"):
+    # Create the HTML content
+    html_content = f"""
+<html>
+  <head>
+    <title>{deck_name}</title>
+    <script type="module" src="https://js.withorbit.com/orbit-web-component.js"></script>
+  </head>
+  <body>
+    <h1>{deck_name}</h1>
+    <orbit-reviewarea color="brown">
+"""
+
+    # Add each card as an orbit-prompt
+    for card in deck.cards:
+        html_content += f"""
+      <orbit-prompt
+        question="{card.front}"
+        answer="{card.back}"
+      ></orbit-prompt>
+"""
+
+    # Close the HTML tags
+    html_content += """
+    </orbit-reviewarea>
+  </body>
+</html>
+"""
+
+    # Write the HTML content to the output file
+    output_path = Path(output_file)
+    output_path.write_text(html_content, encoding="utf-8")
