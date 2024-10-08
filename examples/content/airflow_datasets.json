@@ -1,0 +1,28 @@
+{
+    "cards": [
+        {
+            "front": "What is a dataset in Airflow?",
+            "back": "A dataset is defined as an object that is represented by a unique URI in Airflow. It allows you to create explicit relationships between Directed Acyclic Graphs (DAGs) and enables triggering of DAGs based on updates to datasets.",
+            "sources": [
+                "https://www.astronomer.io/docs/learn/airflow-datasets"
+            ],
+            "reasoning": "The definition of a dataset is explicitly mentioned in the Airflow documentation, and it explains its functionality in terms of creating relationships and triggering DAGs."
+        },
+        {
+            "front": "What is the function of datasets in Apache Airflow?",
+            "back": "Datasets in Apache Airflow allow Directed Acyclic Graphs (DAGs) that access the same data to have explicit relationships and be scheduled based on updates to those datasets. This functionality surpasses traditional time-based scheduling methods.",
+            "sources": [
+                "https://www.astronomer.io/docs/learn/airflow-datasets"
+            ],
+            "reasoning": "This flashcard captures the main functionality of datasets in Airflow, which alludes to their role in DAGs and scheduling, making it relevant and concise based on the content provided."
+        },
+        {
+            "front": "What are the benefits of using datasets in DAG scheduling?",
+            "back": "1. **Standardized Communication**: Datasets serve as a communication tool between teams, indicating when data updates are available. 2. **Reduced Code Complexity**: Simplifies implementation of cross-DAG dependencies, requiring less code. 3. **Increased Visibility**: Provides a clear view of how DAGs are interconnected and dependent on datasets. 4. **Cost Efficiency**: Datasets do not occupy worker slots, which helps reduce operational costs. 5. **Flexible Scheduling**: Enables complex scheduling options through conditional dataset scheduling and time-based triggers.",
+            "sources": [
+                "Astronomer Documentation - Datasets and data-aware scheduling in Airflow"
+            ],
+            "reasoning": "The information extracted directly addresses the prompt by summarizing the benefits of using datasets in DAG scheduling based on the detailed explanation found in the provided content."
+        }
+    ]
+}
