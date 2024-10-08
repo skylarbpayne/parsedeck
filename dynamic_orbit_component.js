@@ -1,4 +1,3 @@
-// TODO: make the base URL for content_ids configurable so that people can host from their own servers if desired.
 class DynamicOrbit extends HTMLElement {
   constructor() {
     super();
@@ -7,9 +6,10 @@ class DynamicOrbit extends HTMLElement {
 
   async connectedCallback() {
     await this.loadOrbitComponents();
+    const base_url = this.getAttribute("base_url") ?? "";
     const content_id = this.getAttribute("content_id");
     this.color = this.getAttribute("color") ?? "blue";
-    this.flashcards = await this.fetchFlashcards(content_id);
+    this.flashcards = await this.fetchFlashcards(base_url, content_id);
     this.render();
   }
 
@@ -19,9 +19,9 @@ class DynamicOrbit extends HTMLElement {
     }
   }
 
-  async fetchFlashcards(content_id) {
+  async fetchFlashcards(base_url, content_id) {
     // Fetch flashcards from your static content server
-    const response = await fetch(`${content_id}`);
+    const response = await fetch(`${base_url}/${content_id}`);
     return await response.json();
   }
 

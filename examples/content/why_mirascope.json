@@ -1,0 +1,22 @@
+{
+    "cards": [
+        {
+            "front": "What are the practical applications of Mirascope?",
+            "back": "Mirascope allows users to reduce boilerplate code in LLM interactions, promotes functional and modular design for creating complex workflows, and supports provider-agnostic calls, enabling easier switching between different LLM APIs.",
+            "sources": ["https://docs.mirascope.io/WHY/"],
+            "reasoning": "The front of the card asks about practical applications, and the back provides a concise summary of specific advantages and uses of the Mirascope tool as described in the document."
+        },
+        {
+            "front": "What is Mirascope and what are its key features?",
+            "back": "Mirascope is a platform that simplifies interactions with language models (LLMs) by providing high-level abstractions without hiding the underlying mechanics. Key features include eliminating boilerplate, allowing easy focus on prompts, providing functional and modular design for composing LLM calls, and enabling provider-agnostic usage.",
+            "sources": ["https://docs.mirascope.io/WHY/"],
+            "reasoning": "Mirascope's functionality and features were summarized from the content describing its purpose and capabilities."
+        },
+        {
+            "front": "What is the primary goal of Mirascope's design approach?",
+            "back": "The primary goal of Mirascope's design approach is to remain Pythonic so developers can build their way, offering convenience while respecting users' expertise.",
+            "sources": ["Mirascope Documentation"],
+            "reasoning": "This answer is derived from the content discussing Mirascope's philosophy of enabling efficient and effective tool usage while focusing on the developer's needs."
+        }
+    ]
+}
