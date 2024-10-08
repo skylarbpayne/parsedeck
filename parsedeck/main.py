@@ -49,6 +49,11 @@ class InvalidInputSource(ValueError):
         super().__init__(f"Invalid input source: {source}")
 
 
+class InvalidExportFormat(ValueError):
+    def __init__(self, export_format: str):
+        super().__init__(f"Invalid output format: {export_format}")
+
+
 # TODO: support for PDF
 # TODO: support for video?
 def get_content_from_sources(input_sources: list[str], download_dir: Path) -> list[str]:
@@ -67,7 +72,12 @@ def get_content_from_sources(input_sources: list[str], download_dir: Path) -> li
     return contents
 
 
-def main(output_file_path: str, deck_name: str, input_sources: list[str], export_format: str = "anki"):
+def main(
+    output_file_path: str,
+    deck_name: str,
+    input_sources: list[str],
+    export_format: str = "anki",
+):
     # Create a directory for downloaded content
     download_dir = Path("downloaded_content")
     download_dir.mkdir(exist_ok=True)
@@ -76,10 +86,16 @@ def main(output_file_path: str, deck_name: str, input_sources: list[str], export
 
     deck = parse_deck(contents)
 
+    # TODO: setup an 'Exporter' interface to make this cleaner
     if export_format == "anki":
         export_to_anki(deck, deck_name, output_file_path)
     elif export_format == "orbit":
         export_to_orbit(deck, deck_name, output_file_path)
+    elif export_format == "json":
+        with open(output_file_path, "w") as f:
+            f.write(deck.model_dump_json(indent=2))
+    else:
+        raise InvalidExportFormat(export_format)
 
 
 if __name__ == "__main__":

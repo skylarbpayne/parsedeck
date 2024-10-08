@@ -1,3 +1,4 @@
+// TODO: make the base URL for content_ids configurable so that people can host from their own servers if desired.
 class DynamicOrbit extends HTMLElement {
   constructor() {
     super();
@@ -27,12 +28,12 @@ class DynamicOrbit extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
         <orbit-reviewarea color="${this.color}">
-          ${this.flashcards
+          ${this.flashcards.cards
             .map(
               (card) => `
             <orbit-prompt
-              question="${card.question}"
-              answer="${card.answer}"
+              question="${card.front}"
+              answer="${card.back}"
             ></orbit-prompt>
           `,
             )

@@ -1,18 +1,28 @@
-[
-    {
-        "question": "How does Tecton integrate with existing data pipelines?",
-        "answer": "Tecton simplifies the development and deployment of machine learning models by providing a self-service environment for feature engineering, allowing teams to rapidly experiment, productionize features in minutes, and manage them through a centralized feature store."
-    },
-    {
-        "question": "What technical architecture does Tecton use for feature management?",
-        "answer": "Tecton uses an out-of-the-box feature platform architecture that provides a self-service environment for managing, sharing, and retrieving features across various data sources. It enables rapid experimentation, productionization of features in under a minute, centralized governance, and serving data for any production application."
-    },
-    {
-        "question": "How does Tecton ensure data freshness in predictions?",
-        "answer": "Tecton ensures data freshness through its unified serving system, which provides fast, reliable, and scalable access to features needed for inference by supporting both real-time and batch ML applications, ensuring that features can be served at any freshness, throughput, or latency requirement."
-    },
-    {
-        "question": "What is the role of the enterprise feature store in Tecton?",
-        "answer": "The enterprise feature store in Tecton serves as a centralized repository for managing, sharing, and retrieving features across various data sources and projects, streamlining governance, sharing, and reuse of features, and enhancing model accuracy while preventing feature pipeline sprawl."
-    }
-]
+{
+    "cards": [
+        {
+            "front": "What is feature governance in the context of machine learning?",
+            "back": "Feature governance refers to the management of feature pipelines and the governance of features at scale in machine learning. It ensures consistency, avoids duplication, and maintains an organized system as the number of features grows, which is crucial for effective model performance.",
+            "sources": [
+                "https://mlops.community/how-tecton-helps-ml-teams-build-smarter-models-faster/"
+            ],
+            "reasoning": "The content provides a detailed discussion on the challenges and needs related to feature management, and specifically mentions governance as a major issue that affects the efficiency and reliability of machine learning models."
+        },
+        {
+            "front": "How does Tecton serve features in a production environment?",
+            "back": "Tecton serves features in a production environment by providing a self-service platform that allows ML teams to define, productionize, and serve features quickly and reliably. This centralized feature management system simplifies the integration of diverse data sources, manages data pipelines, and ensures that features meet requirements for freshness, throughput, and latency. With Tecton, teams can significantly reduce the time to deploy new models, achieving production status in minutes instead of weeks.",
+            "sources": [
+                "https://mlops.community/how-tecton-helps-ml-teams-build-smarter-models-faster/"
+            ],
+            "reasoning": "The front of the card poses a question about Tecton's functionality, and the back provides a concise explanation based on the extracted content, highlighting Tecton's role in managing features within a production environment. The source is cited to ensure the information can be verified."
+        },
+        {
+            "front": "What are some challenges associated with serving features in machine learning?",
+            "back": "1. Experimentation: Creating a development environment for data scientists to create new features is challenging. 2. Productionization: Transitioning features into production data pipelines is daunting. 3. Governance: Managing feature pipelines and ensuring consistency is complex. 4. Serving: Meeting requirements for data freshness, throughput, and latency in production environments is difficult.",
+            "sources": [
+                "https://mlops.community/how-tecton-helps-ml-teams-build-smarter-models-faster/"
+            ],
+            "reasoning": "The front of the card poses a direct question regarding challenges in serving features, while the back provides a detailed list of these challenges based on the content discussed in the source article."
+        }
+    ]
+}
