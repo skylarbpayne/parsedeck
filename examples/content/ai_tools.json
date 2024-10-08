@@ -1,0 +1,30 @@
+{
+    "cards": [
+        {
+            "front": "What are three main ways to interact with ChatGPT in programming?",
+            "back": "1. Enhanced search mechanism: ChatGPT can help users find relevant information about programming topics and generate code scaffolding. 2. Idea generation and brainstorming: Users can use ChatGPT to create prompts, rephrase content, and simulate brainstorming sessions. 3. Image generation with DALLE: Users can upload images, and ChatGPT can describe the style, which can then be used to generate new images.",
+            "sources": [
+                "https://aftercompsci.com/2024/10/05/work-steroids-ai-tools-and-models/"
+            ],
+            "reasoning": "The front question was derived from the text discussing the ways ChatGPT can be utilized in programming, and the back summarizes the listed functionalities directly from the content."
+        },
+        {
+            "front": "What is OLLAMA used for in offline settings?",
+            "back": "OLLAMA is used for running models locally on a machine, allowing users to utilize models such as Llama from Meta or Minstral without needing internet access. It serves as an alternative to ChatGPT for applications that require local computation.",
+            "sources": [
+                "https://ollama.com/",
+                "https://github.com/ollama/ollama"
+            ],
+            "reasoning": "The answer summarizes the main function of OLLAMA as indicated in the content, specifically its utility in offline environments to run AI models."
+        },
+        {
+            "front": "How does GitHub Copilot assist in code writing?",
+            "back": "GitHub Copilot provides suggestions for code completion and can generate entire blocks of code based on comments or context provided by the developer, enhancing coding efficiency and productivity.",
+            "sources": [
+                "https://github.com/features/copilot",
+                "https://aftercompsci.com/2024/10/05/work-steroids-ai-tools-and-models/"
+            ],
+            "reasoning": "The front question directly pertains to the capabilities of GitHub Copilot in coding, and the back response consolidates the insights from the content regarding its functionality as described in the provided text."
+        }
+    ]
+}
