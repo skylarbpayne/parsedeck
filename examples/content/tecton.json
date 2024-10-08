@@ -1,0 +1,18 @@
+[
+    {
+        "question": "How does Tecton integrate with existing data pipelines?",
+        "answer": "Tecton simplifies the development and deployment of machine learning models by providing a self-service environment for feature engineering, allowing teams to rapidly experiment, productionize features in minutes, and manage them through a centralized feature store."
+    },
+    {
+        "question": "What technical architecture does Tecton use for feature management?",
+        "answer": "Tecton uses an out-of-the-box feature platform architecture that provides a self-service environment for managing, sharing, and retrieving features across various data sources. It enables rapid experimentation, productionization of features in under a minute, centralized governance, and serving data for any production application."
+    },
+    {
+        "question": "How does Tecton ensure data freshness in predictions?",
+        "answer": "Tecton ensures data freshness through its unified serving system, which provides fast, reliable, and scalable access to features needed for inference by supporting both real-time and batch ML applications, ensuring that features can be served at any freshness, throughput, or latency requirement."
+    },
+    {
+        "question": "What is the role of the enterprise feature store in Tecton?",
+        "answer": "The enterprise feature store in Tecton serves as a centralized repository for managing, sharing, and retrieving features across various data sources and projects, streamlining governance, sharing, and reuse of features, and enhancing model accuracy while preventing feature pipeline sprawl."
+    }
+]

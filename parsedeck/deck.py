@@ -28,7 +28,10 @@ class DeckPlan(BaseModel):
     cards_to_create: list[str] = Field(
         ..., description="A short description of which cards to create; an extension of the plan"
     )
-    feedback: str = Field(..., description="Feedback on the plan and cards to create")
+    feedback: str = Field(
+        ...,
+        description="Feedback on the plan and cards to create. Specifically ask yourself whether you can make more cards; if yes, make more in the next plan.",
+    )
     finished: bool = Field(..., description="Whether the plan is finished or should be revised")
 
 
