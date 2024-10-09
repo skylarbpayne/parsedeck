@@ -15,10 +15,6 @@ class Card(BaseModel):
 
 
 class Deck(BaseModel):
-    # plan: str = Field(..., description="The plan for the structure and organization of the deck")
-    # cards_to_create: list[str] = Field(
-    #     ..., description="A short description of which cards to create; an extension of the plan"
-    # )
     cards: list[Card] = Field(..., description="The list of flashcards")
 
 
@@ -28,12 +24,6 @@ class DeckPlan(BaseModel):
     cards_to_create: list[str] = Field(
         ..., description="A short description of which cards to create; an extension of the plan"
     )
-
-
-# class DeckPlanRevisions(BaseModel):
-#     plan_revisions: list[DeckPlan] = Field(
-#         ..., description="The revisions to the plan. The first element is the initial plan. Make up to 3 revisions."
-#     )
 
 
 # TODO: make the model configurable

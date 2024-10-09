@@ -1,6 +1,5 @@
 import braintrust
 
-# from autoevals import LLMClassifier
 from parsedeck.deck import DeckPlan, make_deck_plan
 from parsedeck.main import get_url_content
 
@@ -9,23 +8,6 @@ def make_deck_plan_from_url(url: str) -> DeckPlan:
     content = get_url_content(url)
     return make_deck_plan(content)
 
-
-# completeness = LLMClassifier(
-#     name="completeness",
-#     prompt_template="Does the following list of flashcards completely cover the content of the original text? Output only one of VERY LOW, LOW, MEDIUM, HIGH, or VERY HIGH.\n\n{output.plan_revisions[-1].cards_to_create}\n\n{input}",
-#     choice_scores={
-#         'VERY LOW': 0.0,
-#         'LOW': 0.25,
-#         'MEDIUM': 0.5,
-#         'HIGH': 0.75,
-#         'VERY HIGH': 1.0,
-#     }
-# )
-
-# scope = LLMClassifier(
-#     name="scope",
-#     prompt="Does the following text have any typos or grammatical errors? {content}",
-# )
 
 URLS = [
     "https://www.astronomer.io/docs/learn/dags",
