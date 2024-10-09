@@ -23,22 +23,17 @@ class Deck(BaseModel):
 
 
 class DeckPlan(BaseModel):
-    plan: str = Field(..., description="The plan for the structure and organization of the deck")
     reasoning: str = Field(..., description="The reasoning for the plan")
+    plan: str = Field(..., description="The plan for the structure and organization of the deck")
     cards_to_create: list[str] = Field(
         ..., description="A short description of which cards to create; an extension of the plan"
     )
-    feedback: str = Field(
-        ...,
-        description="Feedback on the plan and cards to create. Specifically ask yourself whether you can make more cards; if yes, make more in the next plan.",
-    )
-    finished: bool = Field(..., description="Whether the plan is finished or should be revised")
 
 
-class DeckPlanRevisions(BaseModel):
-    plan_revisions: list[DeckPlan] = Field(
-        ..., description="The revisions to the plan. The first element is the initial plan. Make up to 3 revisions."
-    )
+# class DeckPlanRevisions(BaseModel):
+#     plan_revisions: list[DeckPlan] = Field(
+#         ..., description="The revisions to the plan. The first element is the initial plan. Make up to 3 revisions."
+#     )
 
 
 # TODO: make the model configurable
@@ -48,7 +43,7 @@ class DeckPlanRevisions(BaseModel):
 )
 @openai.call(
     model="gpt-4o-mini",
-    response_model=DeckPlanRevisions,
+    response_model=DeckPlan,
     json_mode=True,
 )
 @prompt_template(
@@ -57,17 +52,18 @@ class DeckPlanRevisions(BaseModel):
     You create flashcards ranging from easy to hard, and you always include the sources you used to create the flashcards to prevent information from being made up.
     Some of your flashcards will be conceptual, and others will be Q&A style.
 
-    Each card you will create should be based on a single concept and be concise. Avoid using prompts with the word 'and' because this implies that there may be multiple concepts.
-    Prefer to have more cards with each card being simpler and more specific over having fewer cards with complexity.
+    You always spend a few sentences thinking about the best way to structure the deck. Your planned decks should:
 
-    Try to create as many cards as possible.
-    During planning, spend time thinking about whether you can create more cards.
+    - Be Accurate
+    - Be Complete and Comprehensive
+    - Have a Logical Structure
+    - Have a good variety of flashcards
 
-    Create a plan for what flashcards to create from the following content:
+    Create a plan for the deck from the following content.
     {content}
     """
 )
-def make_deck_plan(content: str) -> DeckPlanRevisions: ...
+def make_deck_plan(content: str) -> DeckPlan: ...
 
 
 # TODO: make the model configurable
