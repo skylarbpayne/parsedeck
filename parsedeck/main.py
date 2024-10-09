@@ -13,25 +13,25 @@ def get_content(filepath: str) -> str:
         return f.read()
 
 
-def get_url_content(url: str, download_dir: Path) -> str:
+def get_url_content(url: str, download_dir: Path | None = None) -> str:
     response = requests.get(url)  # noqa: S113
     response.raise_for_status()
     content = response.text
 
-    # Save the content to a local file
-    parsed_url = urlparse(url)
-    filename = parsed_url.path.split("/")[-1] or f"{parsed_url.netloc}_index.html"
-    filepath = download_dir / filename
+    if download_dir is not None:
+        parsed_url = urlparse(url)
+        filename = parsed_url.path.split("/")[-1] or f"{parsed_url.netloc}_index.html"
+        filepath = download_dir / filename
 
-    # Ensure unique filename
-    counter = 1
-    while filepath.exists():
-        name, ext = os.path.splitext(filename)
-        filepath = download_dir / f"{name}_{counter}{ext}"
-        counter += 1
+        # Ensure unique filename
+        counter = 1
+        while filepath.exists():
+            name, ext = os.path.splitext(filename)
+            filepath = download_dir / f"{name}_{counter}{ext}"
+            counter += 1
 
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write(content)
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(content)
 
     return content
 

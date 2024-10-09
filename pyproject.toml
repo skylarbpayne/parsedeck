@@ -8,6 +8,8 @@ keywords = ['python']
 requires-python = ">=3.10,<4.0"
 dependencies = [
     "anki>=24.6.3",
+    "autoevals>=0.0.94",
+    "braintrust",
     "genanki>=0.13.1",
     "mirascope[anthropic,mistral,openai,tenacity]>=1.2.1",
     "pydantic>=2.9.2",
